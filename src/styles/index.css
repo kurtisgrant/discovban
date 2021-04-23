@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  @variants responsive {
+    .buffer-1 {
+      padding: 0 30px;
+    }
+    .buffer-2 {
+      padding: 0 60px;
+    }
+  }
+}
