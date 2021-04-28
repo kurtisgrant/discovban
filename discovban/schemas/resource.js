@@ -9,6 +9,11 @@ export default {
       type: 'string'
     },
     {
+      name: 'link',
+      title: 'Link',
+      type: 'url'
+    },
+    {
       name: 'date',
       title: 'Date',
       type: 'date'
@@ -18,10 +23,5 @@ export default {
       title: 'Text',
       type: 'text'
     },
-    {
-      name: 'link',
-      title: 'Link',
-      type: 'url'
-    }
   ]
 }

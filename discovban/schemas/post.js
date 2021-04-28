@@ -4,8 +4,8 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'title',
-      title: 'Title',
+      name: 'name',
+      title: 'Name',
       type: 'string',
     },
     {
@@ -13,7 +13,7 @@ export default {
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: 'name',
         maxLength: 96,
       },
     },
@@ -48,17 +48,16 @@ export default {
       type: 'blockContent',
     },
   ],
-
   preview: {
     select: {
-      title: 'title',
+      title: 'name',
       author: 'author.name',
       media: 'mainImage',
     },
     prepare(selection) {
       const {author} = selection
       return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`,
+        subtitle: 'Post' + (author && ` by ${author}`),
       })
     },
   },

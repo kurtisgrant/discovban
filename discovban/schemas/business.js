@@ -50,7 +50,7 @@ export default {
       name: 'locale',
       title: 'Locale',
       type: 'array',
-      of: [{type: 'locale'}]
+      of: [{type: 'reference', to: [{type: 'locale'}]}]
     },
     {
       name: 'phone',
@@ -73,7 +73,11 @@ export default {
   preview: {
     select: {
       title: 'name',
-      media: 'mainImage',
-    }
+      media: 'mainImage'
+    },
+    prepare(selection) {
+      return Object.assign({}, selection, {
+        subtitle: 'Business'
+    })}
   },
 }

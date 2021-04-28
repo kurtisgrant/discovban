@@ -6,6 +6,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 // We import object and document schemas
 import coreContent from './coreContent'
+import covidContent from './covidContent'
 import locale from './locale'
 
 import attraction from './attraction'
@@ -19,7 +20,8 @@ import blogCategory from './blogCategory'
 import blockContent from './blockContent'
 import cta from './cta'
 import button from './button'
-import seasons from './seasons'
+import relation from './relation'
+import resource from './resource'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -30,6 +32,7 @@ export default createSchema({
   types: schemaTypes.concat([
     
     coreContent,
+    covidContent,
     locale,
 
     // Attractions
@@ -48,6 +51,8 @@ export default createSchema({
     // Object types
     blockContent,
     cta,
-    button
+    button,
+    relation,
+    resource
   ]),
 })

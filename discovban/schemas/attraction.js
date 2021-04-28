@@ -2,6 +2,9 @@ export default {
   name: 'attraction',
   title: 'Attraction',
   type: 'document',
+  fieldsets: [
+    { name: 'seasons', title: 'Seasons', options: { columns: 4 } }
+  ],
   fields: [
     {
       name: 'name',
@@ -40,7 +43,31 @@ export default {
       name: 'locale',
       title: 'Locale',
       type: 'array',
-      of: [{type: 'locale'}]
+      of: [{type: 'reference', to: { type: 'locale' }}]
+    },
+    {
+      name: 'spring',
+      title: 'Spring',
+      type: 'boolean',
+      fieldset: 'seasons'
+    },
+    {
+      name: 'summer',
+      title: 'Summer',
+      type: 'boolean',
+      fieldset: 'seasons'
+    },
+    {
+      name: 'fall',
+      title: 'Fall',
+      type: 'boolean',
+      fieldset: 'seasons'
+    },
+    {
+      name: 'winter',
+      title: 'Winter',
+      type: 'boolean',
+      fieldset: 'seasons'
     },
     {
       name: 'callsToAction',
@@ -50,16 +77,26 @@ export default {
       of: [ {type: 'cta'} ]
     },
     {
-      name: 'relatedBusinesses',
-      title: 'Related Businesses',
+      name: 'related',
+      title: 'Related Posts, Businesses and/or Attractions',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'business'}}],
+      of: [{type: 'relation'}],
     },
   ],
   preview: {
     select: {
       title: 'name',
-      media: 'mainImage',
-    }
+      media: 'mainImage'
+    },
+    prepare(selection) {
+      return Object.assign({}, selection, {
+        subtitle: 'Attraction'
+    })}
   },
+  initialValue: {
+    spring: true,
+    summer: true,
+    fall: true,
+    winter: true
+  }
 }

@@ -11,5 +11,39 @@ export default () =>
             .schemaType('coreContent')
             .documentId('coreContent')
         ),
-      ...S.documentTypeListItems().filter(listItem => !['coreContent'].includes(listItem.getId()))
+      S.listItem()
+      .title('COVID-19 Content')
+      .child(
+        S.document()
+          .schemaType('covidContent')
+          .documentId('covidContent')
+      ),
+      S.listItem()
+      .title('Businesses')
+      .child(
+        S.list()
+        .title('Businesses')
+        .items([
+          ...S.documentTypeListItems().filter(listItem => ['business', 'businessCategory'].includes(listItem.getId()))
+        ])
+      ),
+      S.listItem()
+      .title('Attractions')
+      .child(
+        S.list()
+        .title('Attractions')
+        .items([
+          ...S.documentTypeListItems().filter(listItem => ['attraction', 'attractionCategory'].includes(listItem.getId()))
+        ])
+      ),
+      S.listItem()
+      .title('Blog')
+      .child(
+        S.list()
+        .title('Blog')
+        .items([
+          ...S.documentTypeListItems().filter(listItem => ['post', 'blogCategory', 'author'].includes(listItem.getId()))
+        ])
+      ),
+      ...S.documentTypeListItems().filter(listItem => !['coreContent', 'covidContent', 'business', 'businessCategory', 'attraction', 'attractionCategory', 'post', 'blogCategory', 'author'].includes(listItem.getId()))
     ])
