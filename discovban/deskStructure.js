@@ -45,5 +45,9 @@ export default () =>
           ...S.documentTypeListItems().filter(listItem => ['post', 'blogCategory', 'author'].includes(listItem.getId()))
         ])
       ),
-      ...S.documentTypeListItems().filter(listItem => !['coreContent', 'covidContent', 'business', 'businessCategory', 'attraction', 'attractionCategory', 'post', 'blogCategory', 'author'].includes(listItem.getId()))
+      S.listItem()
+        .title('Locales')
+        .child(
+          S.documentTypeList('locale')
+        )
     ])

@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-export default function NavBar() {
+export default function NavBar({notificationBarData}) {
+    const { notificationBarEnabled, notificationBarText } = notificationBarData;
+
+    const [showNotificationBar, setShowNotificationBar] = useState(notificationBarEnabled);
+    useEffect(() => {
+        setShowNotificationBar(notificationBarEnabled)
+    }, [notificationBarEnabled])
+
+    function closeNotificationBar(e) {
+        e.preventDefault();
+        setShowNotificationBar(false)
+    }
+    const notificationBar = (
+        <div className="bg-red-600 text-white">
+            <div className="flex container mx-auto">
+                <div className="text-center flex-grow px-5 py-1">{notificationBarText}</div>
+                <button className="flex-none self-center px-2 py-1 hover:bg-red-500" onClick={closeNotificationBar}>X</button>
+            </div>
+        </div>
+    )
+
+
   return (
     <header className="absolute top-0 w-full z-20">
-        <nav className="container buffer-1 md:buffer-2 mx-auto">
-            <div className="md:flex items-left py-4">
-                <div className="flex justify-between items-center">
+        {showNotificationBar && notificationBar}
+        <div className="container buffer-1 md:buffer-2 mx-auto">
+            <nav className="md:flex items-left py-4">
+                <div className="flex justify-between items-center bg-red">
                     <div className="md:hidden">
                         <button className="text-white focus:outline-none">
                             <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,8 +53,8 @@ export default function NavBar() {
                         Blog
                     </NavLink>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
   // <div className='m-2 bg-gradient-to-r from-green-500 to-blue-500 rounded-xl shadow-lg'>
   //   <nav className='text-white font-light w-4/5 flex justify-around mx-auto'>

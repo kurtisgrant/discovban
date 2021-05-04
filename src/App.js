@@ -1,5 +1,7 @@
-import './styles/tailwind.css'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import './styles/tailwind.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import sanityClient from "./client.js";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import BlogPost from "./components/pages/BlogPost";
@@ -9,9 +11,24 @@ import SingleBusiness from "./components/pages/SingleBusiness";
 import NavBar from "./components/pages/NavBar";
 
 function App() {
+  const [notificationBarData, setNotificationBarData] = useState(null);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(`*[_id == 'coreContent']{
+        notificationBarEnabled,
+        notificationBarText,
+        notificationBarLink
+      }`)
+      .then((data) => setNotificationBarData(data[0]))
+      .catch(console.error);
+  }, []);
+
+  if (!notificationBarData) return false;
+
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar notificationBarData={notificationBarData}/>
       <Switch>
         <Route component={Home} path='/' exact />
         <Route component={About} path='/about' />
