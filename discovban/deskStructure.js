@@ -33,7 +33,7 @@ export default () =>
         S.list()
         .title('Attractions')
         .items([
-          ...S.documentTypeListItems().filter(listItem => ['attraction', 'attractionCategory'].includes(listItem.getId()))
+          ...S.documentTypeListItems().filter(listItem => ['attraction', 'attractionType'].includes(listItem.getId()))
         ])
       ),
       S.listItem()

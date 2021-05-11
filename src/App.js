@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import sanityClient from "./client.js";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
+import Bbia from "./components/pages/Bbia"
 import BlogPost from "./components/pages/BlogPost";
 import SingleBlogPost from "./components/pages/SingleBlogPost";
-import Business from "./components/pages/Business";
+import Directory from "./components/pages/Directory";
 import SingleBusiness from "./components/pages/SingleBusiness";
 import NavBar from "./components/pages/NavBar";
 
@@ -32,10 +33,11 @@ function App() {
       <Switch>
         <Route component={Home} path='/' exact />
         <Route component={About} path='/about' />
+        <Route component={Bbia} path='/bbia' />
         <Route component={SingleBlogPost} path='/blog/:slug' />
         <Route component={BlogPost} path='/blog' />
         <Route component={SingleBusiness} path='business/:slug' />
-        <Route component={Business} path='/business' />
+        <Route component={Directory} path='/directory' />
       </Switch>
     </BrowserRouter>
   );

@@ -1,7 +1,21 @@
+import featuredContentSection from './featuredContentSection'
+
 export default {
   name: 'business',
   title: 'Business',
   type: 'document',
+  fieldsets: [
+    {
+      name: 'featuredContent', 
+      title: 'Featured Content Section',
+      options: {collapsible: true, collapsed: false}
+    }, 
+    {
+      name: 'businessInfo', 
+      title: 'Business Info',
+      options: {collapsible: true, collapsed: false}
+    }
+  ],
   fields: [
     {
       name: 'name',
@@ -15,15 +29,20 @@ export default {
       options: {
         source: 'name',
         maxLength: 96,
-      },
+      }
     },
+    {
+      name: 'memberStatus',
+      title: 'BBIA Membership',
+      type: 'boolean'
+    },    
     {
       name: 'mainImage',
       title: 'Main image',
       type: 'image',
       options: {
         hotspot: true,
-      },
+      }
     },
     {
       name: 'categories',
@@ -37,39 +56,37 @@ export default {
       type: 'blockContent',
     },
     {
-      name: 'address',
-      title: 'Address',
-      type: 'string'
+      name: 'locale',
+      title: 'Locale(s)',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'locale'}]}],
+      fieldset: 'businessInfo'
     },
     {
-      name: 'memberStatus',
-      title: 'BBIA Membership',
-      type: 'boolean'
-    },    
-    {
-      name: 'locale',
-      title: 'Locale',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'locale'}]}]
+      name: 'address',
+      title: 'Address',
+      type: 'string',
+      fieldset: 'businessInfo'
     },
     {
       name: 'phone',
       title: 'Phone',
-      type: 'string'
+      type: 'string',
+      fieldset: 'businessInfo'
     },
     {
       name: 'email',
       title: 'Email',
-      type: 'string'
+      type: 'string',
+      fieldset: 'businessInfo'
     },
-    {
-      name: 'callsToAction',
-      title: 'Calls to Action',
-      description: 'Eg: "Visit our website", "Like us on Facebook", "Shop online at',
-      type: 'array',
-      of: [ {type: 'cta'} ]
-    }
+    ...featuredContentSection
   ],
+  initialValue: {
+    seasons: ['spring', 'summer', 'fall', 'winter'],
+    featuredSectionHeading: 'Related Content',
+    featuredSectionEnabled: true
+  },
   preview: {
     select: {
       title: 'name',

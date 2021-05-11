@@ -1,7 +1,14 @@
+import featuredContentSection from './featuredContentSection'
+
 export default {
   name: 'post',
   title: 'Post',
   type: 'document',
+  fieldsets: [{
+    name: 'featuredContent', 
+    title: 'Featured Content Section',
+    options: {collapsible: true, collapsed: false}
+  }],
   fields: [
     {
       name: 'name',
@@ -47,7 +54,13 @@ export default {
       title: 'Body',
       type: 'blockContent',
     },
+    ...featuredContentSection
   ],
+  initialValue: {
+    seasons: ['spring', 'summer', 'fall', 'winter'],
+    featuredSectionHeading: 'Related Content',
+    featuredSectionEnabled: true
+  },
   preview: {
     select: {
       title: 'name',

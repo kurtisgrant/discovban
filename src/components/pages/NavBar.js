@@ -14,7 +14,7 @@ export default function NavBar({notificationBarData}) {
         setShowNotificationBar(false)
     }
     const notificationBar = (
-        <div className="bg-red-600 text-white">
+        <div className="bg-red-800 text-white">
             <div className="flex container mx-auto">
                 <div className="text-center flex-grow px-5 py-1">{notificationBarText}</div>
                 <button className="flex-none self-center px-2 py-1 hover:bg-red-500" onClick={closeNotificationBar}>X</button>
@@ -28,7 +28,7 @@ export default function NavBar({notificationBarData}) {
         {showNotificationBar && notificationBar}
         <div className="container buffer-1 md:buffer-2 mx-auto">
             <nav className="md:flex items-left py-4">
-                <div className="flex justify-between items-center bg-red">
+                <div className="flex justify-between items-center">
                     <div className="md:hidden">
                         <button className="text-white focus:outline-none">
                             <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,11 +46,14 @@ export default function NavBar({notificationBarData}) {
                     <NavLink to="/about" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
                         About us
                     </NavLink>
-                    <NavLink to="/business" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
-                        Businesses
+                    <NavLink to="/directory" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
+                        Directory
                     </NavLink>
                     <NavLink to="/blog" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
                         Blog
+                    </NavLink>
+                    <NavLink to="/bbia" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
+                        BBIA
                     </NavLink>
                 </div>
             </nav>

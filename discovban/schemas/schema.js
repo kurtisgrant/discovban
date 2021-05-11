@@ -10,7 +10,7 @@ import covidContent from './covidContent'
 import locale from './locale'
 
 import attraction from './attraction'
-import attractionCategory from './attractionCategory'
+import attractionType from './attractionType'
 import business from './business'
 import businessCategory from './businessCategory'
 import post from './post'
@@ -20,7 +20,6 @@ import blogCategory from './blogCategory'
 import blockContent from './blockContent'
 import cta from './cta'
 import button from './button'
-import relation from './relation'
 import resource from './resource'
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -37,7 +36,7 @@ export default createSchema({
 
     // Attractions
     attraction,
-    attractionCategory,
+    attractionType,
 
     // Businesses
     business,
@@ -52,7 +51,6 @@ export default createSchema({
     blockContent,
     cta,
     button,
-    relation,
     resource
   ]),
 })

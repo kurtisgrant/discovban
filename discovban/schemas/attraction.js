@@ -1,10 +1,14 @@
+import featuredContentSection from './featuredContentSection'
+
 export default {
   name: 'attraction',
   title: 'Attraction',
   type: 'document',
-  fieldsets: [
-    { name: 'seasons', title: 'Seasons', options: { columns: 4 } }
-  ],
+  fieldsets: [{
+    name: 'featuredContent', 
+    title: 'Featured Content Section',
+    options: {collapsible: true, collapsed: false}
+  }],
   fields: [
     {
       name: 'name',
@@ -29,10 +33,10 @@ export default {
       },
     },
     {
-      name: 'categories',
-      title: 'Categories',
+      name: 'types',
+      title: 'Attraction Type(s)',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'attractionCategory'}}],
+      of: [{type: 'reference', to: {type: 'attractionType'}}],
     },
     {
       name: 'details',
@@ -40,48 +44,21 @@ export default {
       type: 'blockContent',
     },
     {
-      name: 'locale',
-      title: 'Locale',
+      name: 'seasons',
+      title: 'Seasons',
       type: 'array',
-      of: [{type: 'reference', to: { type: 'locale' }}]
+      description: '(Leave all selected if not seasonal)',
+      of: [{type: "string"}],
+      options: {
+        list: [
+          {title: 'Spring', value: 'spring'},
+          {title: 'Summer', value: 'summer'},
+          {title: 'Fall', value: 'fall'},
+          {title: 'Winter', value: 'winter'}
+        ]
+      }
     },
-    {
-      name: 'spring',
-      title: 'Spring',
-      type: 'boolean',
-      fieldset: 'seasons'
-    },
-    {
-      name: 'summer',
-      title: 'Summer',
-      type: 'boolean',
-      fieldset: 'seasons'
-    },
-    {
-      name: 'fall',
-      title: 'Fall',
-      type: 'boolean',
-      fieldset: 'seasons'
-    },
-    {
-      name: 'winter',
-      title: 'Winter',
-      type: 'boolean',
-      fieldset: 'seasons'
-    },
-    {
-      name: 'callsToAction',
-      title: 'Calls to Action',
-      description: '(Optional) Eg: "Learn more at", "Join the group on Facebook"',
-      type: 'array',
-      of: [ {type: 'cta'} ]
-    },
-    {
-      name: 'related',
-      title: 'Related Posts, Businesses and/or Attractions',
-      type: 'array',
-      of: [{type: 'relation'}],
-    },
+    ...featuredContentSection,
   ],
   preview: {
     select: {
@@ -94,9 +71,8 @@ export default {
     })}
   },
   initialValue: {
-    spring: true,
-    summer: true,
-    fall: true,
-    winter: true
+    seasons: ['spring', 'summer', 'fall', 'winter'],
+    featuredSectionHeading: 'Related Content',
+    featuredSectionEnabled: true
   }
 }
