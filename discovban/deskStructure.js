@@ -30,11 +30,7 @@ export default () =>
       S.listItem()
       .title('Attractions')
       .child(
-        S.list()
-        .title('Attractions')
-        .items([
-          ...S.documentTypeListItems().filter(listItem => ['attraction', 'attractionType'].includes(listItem.getId()))
-        ])
+        S.documentTypeList('attraction')
       ),
       S.listItem()
       .title('Blog')

@@ -10,11 +10,9 @@ import covidContent from './covidContent'
 import locale from './locale'
 
 import attraction from './attraction'
-import attractionType from './attractionType'
 import business from './business'
 import businessCategory from './businessCategory'
 import post from './post'
-import author from './author'
 import blogCategory from './blogCategory'
 
 import blockContent from './blockContent'
@@ -36,7 +34,6 @@ export default createSchema({
 
     // Attractions
     attraction,
-    attractionType,
 
     // Businesses
     business,
@@ -44,7 +41,6 @@ export default createSchema({
 
     // Blog
     post,
-    author,
     blogCategory,
 
     // Object types

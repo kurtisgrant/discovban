@@ -31,11 +31,11 @@ export default function Directory() {
         phone,
         email
       }`)
-      .then((data) => setDirectoryData(data[0]))
+      .then((data) => setDirectoryData(data))
       .catch(console.error);
   }, []);
 
-  if (!notificationBarData) return false;
+  if (!notificationBarData || !directoryData) return false;
 
   return (
     <div className="text-xl2">Doing things...{console.log(notificationBarData, directoryData)}</div>

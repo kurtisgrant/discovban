@@ -25,12 +25,6 @@ export default {
       },
     },
     {
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: {type: 'author'},
-    },
-    {
       name: 'mainImage',
       title: 'Main image',
       type: 'image',
@@ -57,20 +51,17 @@ export default {
     ...featuredContentSection
   ],
   initialValue: {
-    seasons: ['spring', 'summer', 'fall', 'winter'],
     featuredSectionHeading: 'Related Content',
     featuredSectionEnabled: true
   },
   preview: {
     select: {
       title: 'name',
-      author: 'author.name',
       media: 'mainImage',
     },
     prepare(selection) {
-      const {author} = selection
       return Object.assign({}, selection, {
-        subtitle: 'Post' + (author && ` by ${author}`),
+        subtitle: 'Post',
       })
     },
   },

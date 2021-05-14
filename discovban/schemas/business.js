@@ -1,48 +1,23 @@
-import featuredContentSection from './featuredContentSection'
-
 export default {
   name: 'business',
   title: 'Business',
   type: 'document',
-  fieldsets: [
-    {
-      name: 'featuredContent', 
-      title: 'Featured Content Section',
-      options: {collapsible: true, collapsed: false}
-    }, 
-    {
-      name: 'businessInfo', 
-      title: 'Business Info',
-      options: {collapsible: true, collapsed: false}
-    }
-  ],
   fields: [
+    {
+      name: 'memberStatus',
+      title: 'BBIA Membership',
+      type: 'boolean'
+    },
     {
       name: 'name',
       title: 'Name',
       type: 'string',
     },
     {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'name',
-        maxLength: 96,
-      }
-    },
-    {
-      name: 'memberStatus',
-      title: 'BBIA Membership',
-      type: 'boolean'
-    },    
-    {
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      }
+      name: 'description',
+      title: 'Description',
+      description: 'One to three sentences describing the business if it is not obvious from reading the business name',
+      type: 'text'
     },
     {
       name: 'categories',
@@ -51,46 +26,30 @@ export default {
       of: [{type: 'reference', to: {type: 'businessCategory'}}],
     },
     {
-      name: 'details',
-      title: 'Details',
-      type: 'blockContent',
-    },
-    {
       name: 'locale',
       title: 'Locale(s)',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'locale'}]}],
-      fieldset: 'businessInfo'
+      of: [{type: 'reference', to: [{type: 'locale'}]}]
     },
     {
       name: 'address',
       title: 'Address',
-      type: 'string',
-      fieldset: 'businessInfo'
+      type: 'string'
     },
     {
       name: 'phone',
       title: 'Phone',
-      type: 'string',
-      fieldset: 'businessInfo'
+      type: 'string'
     },
     {
       name: 'email',
       title: 'Email',
-      type: 'string',
-      fieldset: 'businessInfo'
-    },
-    ...featuredContentSection
+      type: 'string'
+    }
   ],
-  initialValue: {
-    seasons: ['spring', 'summer', 'fall', 'winter'],
-    featuredSectionHeading: 'Related Content',
-    featuredSectionEnabled: true
-  },
   preview: {
     select: {
-      title: 'name',
-      media: 'mainImage'
+      title: 'name'
     },
     prepare(selection) {
       return Object.assign({}, selection, {

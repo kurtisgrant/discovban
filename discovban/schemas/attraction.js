@@ -11,6 +11,11 @@ export default {
   }],
   fields: [
     {
+      name: 'homepage',
+      title: 'Featured on Homepage',
+      type: 'boolean'
+    },
+    {
       name: 'name',
       title: 'Name',
       type: 'string',
@@ -33,30 +38,9 @@ export default {
       },
     },
     {
-      name: 'types',
-      title: 'Attraction Type(s)',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'attractionType'}}],
-    },
-    {
       name: 'details',
       title: 'Details',
       type: 'blockContent',
-    },
-    {
-      name: 'seasons',
-      title: 'Seasons',
-      type: 'array',
-      description: '(Leave all selected if not seasonal)',
-      of: [{type: "string"}],
-      options: {
-        list: [
-          {title: 'Spring', value: 'spring'},
-          {title: 'Summer', value: 'summer'},
-          {title: 'Fall', value: 'fall'},
-          {title: 'Winter', value: 'winter'}
-        ]
-      }
     },
     ...featuredContentSection,
   ],
@@ -71,7 +55,7 @@ export default {
     })}
   },
   initialValue: {
-    seasons: ['spring', 'summer', 'fall', 'winter'],
+    homepage: true,
     featuredSectionHeading: 'Related Content',
     featuredSectionEnabled: true
   }
