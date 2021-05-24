@@ -27,9 +27,9 @@ export default {
     },
     {
       name: 'locale',
-      title: 'Locale(s)',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'locale'}]}]
+      title: 'Locale',
+      type: 'reference', 
+      to: [{type: 'locale'}]
     },
     {
       name: 'address',
@@ -45,6 +45,11 @@ export default {
       name: 'email',
       title: 'Email',
       type: 'string'
+    },
+    {
+      name: 'link',
+      title: 'Link',
+      type: 'url'
     }
   ],
   preview: {

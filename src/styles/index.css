@@ -4,6 +4,9 @@
 
 @layer utilities {
   @variants responsive {
+    .buffer {
+      padding: 0 15px;
+    }
     .buffer-1 {
       padding: 0 30px;
     }

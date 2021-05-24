@@ -1,23 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import NavBar from '../NavBar'
+import FilterForm from '../FilterForm'
+import BusinessCard from '../BusinessCard'
 import sanityClient from '../../client'
 
+const ALL_CATEGORIES_NAME = 'All Categories';
+const ALL_LOCALES_NAME = 'Greater Bancroft Area (All)';
+
 export default function Directory() {
-  const [notificationBarData, setNotificationBarData] = useState(null);
   const [directoryData, setDirectoryData] = useState(null);
+  const [filteredDirectoryData, setFilteredDirectoryData] = useState(null);
+
+  const [filterCategory, setFilterCategory] = useState(null);
+  const [filterLocale, setFilterLocale] = useState(null);
+  const categoriesArr = [ALL_CATEGORIES_NAME];
+  const localesArr = [ALL_LOCALES_NAME];
 
   useEffect(() => {
-    sanityClient
-      .fetch(`*[_id == 'coreContent']{
-        notificationBarEnabled,
-        notificationBarText,
-        notificationBarLink
-      }`)
-      .then((data) => setNotificationBarData(data[0]))
-      .catch(console.error);
     sanityClient
       .fetch(`*[_type == 'business']{
         name,
         slug,
+        description,
+        address,
         memberStatus,
         mainImage{
           asset->{
@@ -25,19 +30,76 @@ export default function Directory() {
             url
           }
         },
-        categories[]->{title},
+        categories[]->{_id, title},
         details,
-        locale[]->{name},
+        "locale":locale->name,
         phone,
         email
       }`)
-      .then((data) => setDirectoryData(data))
+      .then((data) => {
+        setDirectoryData(data);
+        setFilterCategory(categoriesArr[0]);
+        setFilterLocale(localesArr[0]);
+      })
       .catch(console.error);
   }, []);
 
-  if (!notificationBarData || !directoryData) return false;
+  useEffect(() => {
+    if (!directoryData) return
+    console.log(filteredDirectoryData)
+    setFilteredDirectoryData(directoryData.filter(business => {
+      if (!business.categories.some(({title}) => title === filterCategory) && filterCategory !== ALL_CATEGORIES_NAME) return false;
+      if (business.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
+      return true;
+    }))
+  }, [filterCategory, filterLocale, directoryData])
+  
+  if (!directoryData) return false;
+  
+  directoryData.forEach(business => {
+    business.categories.forEach(c => {
+      if (!categoriesArr.includes(c.title)) {
+        categoriesArr.push(c.title);
+      };
+    });
+    if (!localesArr.includes(business.locale)) {
+      localesArr.push(business.locale);
+    };
+  });
+
+  const handleFilterCategoryChange = (e) => {
+    setFilterCategory(e.target.value);
+  }
+  const handleFilterLocaleChange = (e) => {
+    setFilterLocale(e.target.value);
+  }
+  const handleClearFilters = (e) => {
+    setFilterCategory(categoriesArr[0]);
+    setFilterLocale(localesArr[0]);
+  }
+
 
   return (
-    <div className="text-xl2">Doing things...{console.log(notificationBarData, directoryData)}</div>
+    <>
+    <NavBar opaque/>
+    <div className="h-80 w-full bg-db_green-dark absolute top-0 z-0 shadow-lg"></div>
+    <div className="container buffer md:buffer-1 lg:buffer-2 mt-36 mx-auto flex flex-auto flex-col xl:flex-row">
+
+      {/* FILTER */}
+      <div className="rounded-2xl shadow-lg bg-white z-10 m-2 p-3 md:self-start">
+        <FilterForm categories={categoriesArr} locales={localesArr} filterCategory={filterCategory} filterLocale={filterLocale} handleCategoryChange={handleFilterCategoryChange} handleLocaleChange={handleFilterLocaleChange} handleClearFilters={handleClearFilters}/>
+      </div>
+
+      {/* LISTINGS */}
+      <div className="rounded-2xl shadow-lg bg-white z-10 flex-grow m-2 p-3 pb-24">
+        <span>{filterCategory}</span> <br />
+        <span>{filterLocale}</span> <br />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat( auto-fit, minmax(225px, 1fr) )', gridGap: "10px", alignItems: 'start'}}>
+          {filteredDirectoryData && filteredDirectoryData.map(biz => <BusinessCard data={biz} key={biz.name} />)}
+        </div>
+      </div>
+
+    </div>
+    </>
   )
 }

@@ -1,7 +1,8 @@
 import sanityClient from '@sanity/client';
+import auth from './sanityAuth'
 
 export default sanityClient({
-  projectId: "q72pygsu",
-  dataset: "production",
+  projectId: auth.projectId,
+  dataset: auth.dataset,
   useCdn: false
 })
