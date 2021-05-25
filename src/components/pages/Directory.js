@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import NavBar from '../NavBar'
 import FilterForm from '../FilterForm'
 import BusinessCard from '../BusinessCard'
@@ -6,15 +6,16 @@ import sanityClient from '../../client'
 
 const ALL_CATEGORIES_NAME = 'All Categories';
 const ALL_LOCALES_NAME = 'Bancroft Area (All)';
+const DEFAULT_LOCALE = 'Downtown Bancroft';
 
 export default function Directory() {
+  const categoriesArr = [ALL_CATEGORIES_NAME];
+  const localesArr = [ALL_LOCALES_NAME];
   const [directoryData, setDirectoryData] = useState(null);
   const [filteredDirectoryData, setFilteredDirectoryData] = useState(null);
 
   const [filterCategory, setFilterCategory] = useState(null);
   const [filterLocale, setFilterLocale] = useState(null);
-  const categoriesArr = [ALL_CATEGORIES_NAME];
-  const localesArr = [ALL_LOCALES_NAME];
 
   useEffect(() => {
     sanityClient
@@ -36,13 +37,31 @@ export default function Directory() {
         phone,
         email
       } | order(name asc)`)
-      .then((data) => {
-        setDirectoryData(data);
-        setFilterCategory(categoriesArr[0]);
-        // setFilterLocale(localesArr[0]);
-      })
+      .then((data) => setDirectoryData(data))
       .catch(console.error);
   }, []);
+
+  if (directoryData) {
+
+    // Populate categories array & locales array from business data fetched
+    directoryData.forEach(business => {
+      business.categories.forEach(c => {
+        if (!categoriesArr.includes(c.title)) {
+          categoriesArr.push(c.title);
+        };
+      });
+      if (business.locale && !localesArr.includes(business.locale)) {
+        localesArr.push(business.locale);
+      };
+    });
+    
+    if (filterCategory == null) {
+      setFilterCategory(ALL_CATEGORIES_NAME);
+    }
+    if (filterLocale == null) {
+      setFilterLocale(localesArr.includes(DEFAULT_LOCALE) ? DEFAULT_LOCALE : ALL_LOCALES_NAME);
+    }
+  }
 
   useEffect(() => {
     if (!directoryData) return
@@ -51,27 +70,10 @@ export default function Directory() {
       if (business.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
       return true;
     }))
-  }, [filterCategory, filterLocale, directoryData])
+  }, [directoryData, filterCategory, filterLocale])
 
-  useEffect(() => {
-    if (localesArr.includes('Downtown Bancroft')) {
-      console.log('includes');
-      setFilterLocale('Downtown Bancroft');
-    }
-  }, [directoryData])
-  
-  if (!directoryData) return false;
-  
-  directoryData.forEach(business => {
-    business.categories.forEach(c => {
-      if (!categoriesArr.includes(c.title)) {
-        categoriesArr.push(c.title);
-      };
-    });
-    if (business.locale && !localesArr.includes(business.locale)) {
-      localesArr.push(business.locale);
-    };
-  });
+  if (!directoryData) return null;
+
 
   const handleFilterCategoryChange = (e) => {
     setFilterCategory(e.target.value);
@@ -83,7 +85,6 @@ export default function Directory() {
     setFilterCategory(categoriesArr[0]);
     setFilterLocale(localesArr[0]);
   }
-
 
   return (
     <>

@@ -33,6 +33,7 @@ export default function Home() {
           "business": business->name,
           "address": business->address,
           notice,
+          key,
           "button": {text, url}[]
         },
         covidSectionHeader
@@ -74,7 +75,7 @@ export default function Home() {
       <div className="container buffer-1 md:buffer-2 mx-auto mb-8">
         <h2 className="my-20 text-4xl text-white font-bold text-center">{covidData.covidSectionHeader}</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat( auto-fill, minmax(225px, 1fr) )', gridGap: "25px"}}>
-          {covidData.updates && (covidData.updates.length > 0 ? covidData.updates.map(update => <UpdateCard data={update} key={update.name} />) : <div className="w-full col-span-full my-5 text-center text-white">No Updates</div>)}
+          {covidData.updates && (covidData.updates.length > 0 ? covidData.updates.map(update => <UpdateCard data={update} key={update.key} />) : <div className="w-full col-span-full my-5 text-center text-white">No Updates</div>)}
         </div>
         <div className="w-full text-white text-sm text-center mt-32">
           {coreContent.footerText}
