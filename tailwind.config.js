@@ -12,10 +12,14 @@ module.exports = {
           dark: '#54705F',
           dark2: '#5C7A68'
         }
+      },
+      transitionProperty: {
+        'height': 'height'
       }
     }
   },
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
+    require('tailwind-hamburgers')
   ]
 }

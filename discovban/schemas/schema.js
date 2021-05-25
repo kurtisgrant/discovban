@@ -12,8 +12,8 @@ import locale from './locale'
 import attraction from './attraction'
 import business from './business'
 import businessCategory from './businessCategory'
-import post from './post'
-import blogCategory from './blogCategory'
+// import post from './post'
+// import blogCategory from './blogCategory'
 
 import blockContent from './blockContent'
 import cta from './cta'
@@ -40,8 +40,8 @@ export default createSchema({
     businessCategory,
 
     // Blog
-    post,
-    blogCategory,
+    // post,
+    // blogCategory,
 
     // Object types
     blockContent,

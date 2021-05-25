@@ -8,6 +8,11 @@ export default {
   __experimental_actions: ['update', 'publish'],
   fields: [
     {
+      name: 'covidSectionHeader',
+      title: 'COVID-19 Section Header',
+      type: 'string',
+    },
+    {
       name: 'covidBusinessNotices',
       title: 'COVID-19 Business Accommodations',
       type: 'array',

@@ -32,15 +32,15 @@ export default () =>
       .child(
         S.documentTypeList('attraction')
       ),
-      S.listItem()
-      .title('Blog')
-      .child(
-        S.list()
-        .title('Blog')
-        .items([
-          ...S.documentTypeListItems().filter(listItem => ['post', 'blogCategory', 'author'].includes(listItem.getId()))
-        ])
-      ),
+      // S.listItem()
+      // .title('Blog')
+      // .child(
+      //   S.list()
+      //   .title('Blog')
+      //   .items([
+      //     ...S.documentTypeListItems().filter(listItem => ['post', 'blogCategory', 'author'].includes(listItem.getId()))
+      //   ])
+      // ),
       S.listItem()
         .title('Locales')
         .child(

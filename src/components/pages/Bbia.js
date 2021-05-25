@@ -22,7 +22,7 @@ export default function Bbia() {
   return (
     <>
       <div className="absolute top-0 bg-db_green-dark w-full">
-        <NavBar opaque/>
+        <NavBar />
         <div className="container buffer md:buffer-1 lg:buffer-2 mx-auto">
           <div className="block-content bg-white my-36 py-3 shadow-lg rounded-2xl text-db_blue-dark">
             <BlockContent projectId={auth.projectId} dataset={auth.dataset} blocks={bbiaData} className={styles.blockContent} style={styles}/>

@@ -27,7 +27,7 @@ export default [
             to: [
               {type: 'business'},
               {type: 'attraction'},
-              {type: 'post'}
+              // {type: 'post'}
             ]
           },
           {

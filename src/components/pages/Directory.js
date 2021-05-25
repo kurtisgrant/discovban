@@ -5,7 +5,7 @@ import BusinessCard from '../BusinessCard'
 import sanityClient from '../../client'
 
 const ALL_CATEGORIES_NAME = 'All Categories';
-const ALL_LOCALES_NAME = 'Greater Bancroft Area (All)';
+const ALL_LOCALES_NAME = 'Bancroft Area (All)';
 
 export default function Directory() {
   const [directoryData, setDirectoryData] = useState(null);
@@ -35,24 +35,30 @@ export default function Directory() {
         "locale":locale->name,
         phone,
         email
-      }`)
+      } | order(name asc)`)
       .then((data) => {
         setDirectoryData(data);
         setFilterCategory(categoriesArr[0]);
-        setFilterLocale(localesArr[0]);
+        // setFilterLocale(localesArr[0]);
       })
       .catch(console.error);
   }, []);
 
   useEffect(() => {
     if (!directoryData) return
-    console.log(filteredDirectoryData)
     setFilteredDirectoryData(directoryData.filter(business => {
       if (!business.categories.some(({title}) => title === filterCategory) && filterCategory !== ALL_CATEGORIES_NAME) return false;
       if (business.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
       return true;
     }))
   }, [filterCategory, filterLocale, directoryData])
+
+  useEffect(() => {
+    if (localesArr.includes('Downtown Bancroft')) {
+      console.log('includes');
+      setFilterLocale('Downtown Bancroft');
+    }
+  }, [directoryData])
   
   if (!directoryData) return false;
   
@@ -62,7 +68,7 @@ export default function Directory() {
         categoriesArr.push(c.title);
       };
     });
-    if (!localesArr.includes(business.locale)) {
+    if (business.locale && !localesArr.includes(business.locale)) {
       localesArr.push(business.locale);
     };
   });
@@ -81,7 +87,7 @@ export default function Directory() {
 
   return (
     <>
-    <NavBar opaque/>
+    <NavBar />
     <div className="h-80 w-full bg-db_green-dark absolute top-0 z-0 shadow-lg"></div>
     <div className="container buffer md:buffer-1 lg:buffer-2 mt-36 mx-auto flex flex-auto flex-col xl:flex-row">
 
@@ -92,10 +98,9 @@ export default function Directory() {
 
       {/* LISTINGS */}
       <div className="rounded-2xl shadow-lg bg-white z-10 flex-grow m-2 p-3 pb-24">
-        <span>{filterCategory}</span> <br />
-        <span>{filterLocale}</span> <br />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat( auto-fit, minmax(225px, 1fr) )', gridGap: "10px", alignItems: 'start'}}>
-          {filteredDirectoryData && filteredDirectoryData.map(biz => <BusinessCard data={biz} key={biz.name} />)}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat( auto-fill, minmax(225px, 1fr) )', gridGap: "10px"}}>
+
+          {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(biz => <BusinessCard data={biz} key={biz.name} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
         </div>
       </div>
 
