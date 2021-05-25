@@ -16,7 +16,7 @@ import businessCategory from './businessCategory'
 // import blogCategory from './blogCategory'
 
 import blockContent from './blockContent'
-import cta from './cta'
+// import cta from './cta'
 import button from './button'
 import resource from './resource'
 
@@ -45,7 +45,7 @@ export default createSchema({
 
     // Object types
     blockContent,
-    cta,
+    // cta,
     button,
     resource
   ]),
