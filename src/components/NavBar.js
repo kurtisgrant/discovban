@@ -25,9 +25,9 @@ export default function NavBar({ opaque }) {
                             </div>
                         </button>
                         <div className="flex-grow w-full flex justify-center">
-                            <a href="#" className="py-1 pr-16">
+                            <NavLink  exact to="/" className="py-1 pr-16">
                                 <img className="h-12" src={logo} alt=""/>
-                            </a>
+                            </NavLink>
                         </div>
                     </div>
                     <div className={drawerClasses}>
