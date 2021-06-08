@@ -5,45 +5,43 @@ export default () =>
     .title('Content')
     .items([
       S.listItem()
-        .title('Core Content')
+        .title('Page Content')
         .child(
-          S.document()
-            .schemaType('coreContent')
-            .documentId('coreContent')
+          S.documentTypeList('page')
         ),
       S.listItem()
-      .title('COVID-19 Content')
-      .child(
-        S.document()
-          .schemaType('covidContent')
-          .documentId('covidContent')
-      ),
-      S.listItem()
-      .title('Businesses')
+      .title('Directory')
       .child(
         S.list()
-        .title('Businesses')
+        .title('Directory')
         .items([
-          ...S.documentTypeListItems().filter(listItem => ['business', 'businessCategory'].includes(listItem.getId()))
+          ...S.documentTypeListItems().filter(listItem => ['listing', 'listingCategory'].includes(listItem.getId()))
         ])
-      ),
+        ),
       S.listItem()
       .title('Attractions')
       .child(
         S.documentTypeList('attraction')
       ),
-      // S.listItem()
-      // .title('Blog')
-      // .child(
-      //   S.list()
-      //   .title('Blog')
-      //   .items([
-      //     ...S.documentTypeListItems().filter(listItem => ['post', 'blogCategory', 'author'].includes(listItem.getId()))
-      //   ])
-      // ),
       S.listItem()
-        .title('Locales')
+      .title('Blog')
+      .child(
+        S.documentTypeList('post')
+      ),
+      S.listItem()
+        .title('Additional Settings')
         .child(
-          S.documentTypeList('locale')
-        )
+          S.list()
+          .title('Additional Settings')
+          .items([
+            ...S.documentTypeListItems().filter(listItem => ['locale'].includes(listItem.getId())),
+            S.listItem()
+              .title('Site Options')
+              .child(
+                S.document()
+                  .schemaType('siteOptions')
+                  .documentId('siteOptions')
+              )
+          ])
+        ),
     ])
