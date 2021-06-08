@@ -99,7 +99,7 @@ export default function Directory() {
 
       {/* LISTINGS */}
       <div className="rounded-2xl shadow-lg bg-white z-10 flex-grow m-2 p-3 pb-24">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat( auto-fill, minmax(225px, 1fr) )', gridGap: "10px"}}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
 
           {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(biz => <BusinessCard data={biz} key={biz.name} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
         </div>

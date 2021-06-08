@@ -74,7 +74,7 @@ export default function Home() {
     <div className="bg-db_green w-full py-3 shadow-lg">
       <div className="container buffer-1 md:buffer-2 mx-auto mb-8">
         <h2 className="my-20 text-4xl text-white font-bold text-center">{covidData.covidSectionHeader}</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat( auto-fill, minmax(225px, 1fr) )', gridGap: "25px"}}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {covidData.updates && (covidData.updates.length > 0 ? covidData.updates.map(update => <UpdateCard data={update} key={update.key} />) : <div className="w-full col-span-full my-5 text-center text-white">No Updates</div>)}
         </div>
         <div className="w-full text-white text-sm text-center mt-32">
