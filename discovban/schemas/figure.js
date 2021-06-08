@@ -1,0 +1,18 @@
+export default {
+  name: 'figure',
+  type: 'object',
+  title: 'Image',
+  fields: [
+    {
+      name: 'alt',
+      type: 'string',
+      description: 'A brief description of the image for assessibility purposes. Screen readers use "alt" text to describe websites to visualy impared users.'
+    },
+    {
+      name: 'image',
+      title: 'Image File',
+      type: 'image',
+      options: {hotspot: true}
+    }
+  ]
+}

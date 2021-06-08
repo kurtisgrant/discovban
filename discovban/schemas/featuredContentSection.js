@@ -1,7 +1,7 @@
 export default [
     {
       name: 'featuredSectionEnabled',
-      title: 'Enabled',
+      title: 'Enabled?',
       description: "Toggle to 'off' to disable the featured content section",
       type: 'boolean',
       fieldset: 'featuredContent'
@@ -25,9 +25,9 @@ export default [
             title: 'Article',
             type: 'reference',
             to: [
-              {type: 'business'},
+              {type: 'listing'},
               {type: 'attraction'},
-              // {type: 'post'}
+              {type: 'post'}
             ]
           },
           {
