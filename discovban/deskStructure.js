@@ -5,11 +5,6 @@ export default () =>
     .title('Content')
     .items([
       S.listItem()
-        .title('Page Content')
-        .child(
-          S.documentTypeList('page')
-        ),
-      S.listItem()
       .title('Directory')
       .child(
         S.list()
@@ -29,19 +24,29 @@ export default () =>
         S.documentTypeList('post')
       ),
       S.listItem()
-        .title('Additional Settings')
+      .title('Updates')
+      .child(
+        S.documentTypeList('update')
+      ),
+      S.listItem()
+        .title('Additional Options')
         .child(
           S.list()
-          .title('Additional Settings')
+          .title('Site Options')
           .items([
-            ...S.documentTypeListItems().filter(listItem => ['locale'].includes(listItem.getId())),
             S.listItem()
-              .title('Site Options')
+            .title('Site Options')
+            .child(
+              S.document()
+              .schemaType('siteOptions')
+              .documentId('siteOptions')
+              ),
+              S.listItem()
+              .title('Other Content')
               .child(
-                S.document()
-                  .schemaType('siteOptions')
-                  .documentId('siteOptions')
-              )
+                S.documentTypeList('contentPiece')
+              ),
+              ...S.documentTypeListItems().filter(listItem => ['locale'].includes(listItem.getId())),
           ])
         ),
     ])
