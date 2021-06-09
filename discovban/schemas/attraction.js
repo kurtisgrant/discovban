@@ -39,7 +39,7 @@ export default {
       title: 'Details',
       type: 'blockContent',
     },
-    ...featuredContentSection,
+    // ...featuredContentSection,
   ],
   preview: {
     select: {
@@ -53,7 +53,7 @@ export default {
   },
   initialValue: {
     homepage: true,
-    featuredSectionHeading: 'Related Content',
-    featuredSectionEnabled: true
+    // featuredSectionHeading: 'Related Content',
+    // featuredSectionEnabled: true
   }
 }

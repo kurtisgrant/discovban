@@ -1,6 +1,6 @@
 export default {
-  name: 'page',
-  title: 'Page',
+  name: 'contentPiece',
+  title: 'Content Piece',
   type: 'document',
   fieldsets: [
   ],

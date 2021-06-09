@@ -34,11 +34,11 @@ export default {
       title: 'Body',
       type: 'blockContent',
     },
-    ...featuredContentSection
+    // ...featuredContentSection
   ],
   initialValue: {
-    featuredSectionHeading: 'Related Content',
-    featuredSectionEnabled: true
+    // featuredSectionHeading: 'Related Content',
+    // featuredSectionEnabled: true
   },
   preview: {
     select: {

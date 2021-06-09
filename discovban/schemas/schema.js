@@ -8,11 +8,12 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import siteOptions from './siteOptions'
 import locale from './locale'
 
-import page from './page'
+import contentPiece from './contentPiece'
 import attraction from './attraction'
 import listing from './listing'
 import listingCategory from './listingCategory'
 import post from './post'
+import update from './update'
 // import blogCategory from './blogCategory'
 
 import blockContent from './blockContent'
@@ -31,8 +32,8 @@ export default createSchema({
     siteOptions,
     locale,
 
-    // Pages
-    page,
+    // Content Pieces
+    contentPiece,
 
     // Attractions
     attraction,
@@ -41,7 +42,11 @@ export default createSchema({
     listing,
     listingCategory,
 
+    // Blog
     post,
+
+    // Updates
+    update,
 
     // Object types
     blockContent,

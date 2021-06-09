@@ -2,7 +2,7 @@ export default {
   name: 'siteOptions',
   title: 'Site Options',
   type: 'document',
-  // __experimental_actions: ['update', 'publish'],
+  __experimental_actions: ['update', 'publish'],
   fieldsets: [
     {name: 'homepage', title: 'Homepage Options', options: {collapsible: true, collapsed: false}}
   ],
@@ -11,7 +11,7 @@ export default {
       name: 'menuItems',
       title: 'Additional Menu Items',
       type: 'array',
-      description: 'To be added in addition to: Home, Businesses/Services and Attractions',
+      description: 'Choose content from "Other Content" to be added to the menu in addition to: Home, Businesses/Services and Attractions',
       of: [{
         type: 'object',
         fields: [
@@ -24,7 +24,7 @@ export default {
             name: 'pageContent',
             title: 'Page Content',
             type: 'reference',
-            to: { type: 'page' }
+            to: { type: 'contentPiece' }
           }
         ]
       }]
@@ -38,14 +38,16 @@ export default {
     {
       name: 'footerText',
       title: 'Footer Text',
+      description: 'Text displayed at the very bottom of the homepage',
       type: 'string',
       fieldset: 'homepage'
     }, 
     {
       name: 'homepageBody',
       title: 'Homepage Content Source',
+      description: 'Choose content from "Other Content" to be used as the main body text on the homepage',
       type: 'reference',
-      to: { type: 'page' },
+      to: { type: 'contentPiece' },
       fieldset: 'homepage'
     }, 
   ], 
