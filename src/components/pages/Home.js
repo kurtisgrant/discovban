@@ -1,48 +1,55 @@
 import React, { useState, useEffect } from 'react'
 import sanityClient from "../../client.js";
 import EaglesNestFall from '../../images/EaglesNestFall.jpg'
-import TickerSection from '../TickerSection'
+// import TickerSection from '../TickerSection'
 import NavBar from '../NavBar'
 import UpdateCard from '../UpdateCard'
 import { Link } from 'react-router-dom'
 
+    // Attraction tags section temporarily left out********
+
 export default function Home() {
-  const [attractionData, setAttractionData] = useState(null)
-  const [coreContent, setCoreContent] = useState(null)
-  const [covidData, setCovidData] = useState(null)
+  // const [attractionData, setAttractionData] = useState(null)
+  const [siteOptions, setSiteOptions] = useState(null)
+  const [updates, setUpdates] = useState(null)
 
   useEffect(() => {
+    // sanityClient
+    //   .fetch(`*[_type == 'attraction' && homepage]{
+    //     name,
+    //     'slug': slug.current
+    //   }
+    //   `)
+    //   .then((data) => setAttractionData(data))
+    //   .catch(console.error);
     sanityClient
-      .fetch(`*[_type == 'attraction' && homepage]{
-        name,
-        'slug': slug.current
-      }
-      `)
-      .then((data) => setAttractionData(data))
-      .catch(console.error);
-    sanityClient
-      .fetch(`*[_type == 'coreContent']{
+      .fetch(`*[_type == 'siteOptions']{
         mainCoverText,
         footerText
       }`)
-      .then((data) => setCoreContent(data[0]))
+      .then((data) => setSiteOptions(data[0]))
       .catch(console.error);
+
+    // Set today's date for updates query
+    const d = new Date()
+    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
+    const mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d)
+    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
+    const today = `${ye}-${mo}-${da}`;
+
     sanityClient
-      .fetch(`*[_type == 'covidContent'] {
-        "updates": covidBusinessNotices[] {
-          "business": business->name,
-          "address": business->address,
-          notice,
-          key,
-          "button": {text, url}[]
-        },
-        covidSectionHeader
+      .fetch(`*[_type == 'update' && onHomepage && expiry > '${today}'] | order(date desc) {
+        _id,
+        headline,
+        text,
+        date,
+        button
       }`)
-      .then((data) => setCovidData(data[0]))
+      .then((data) => setUpdates(data))
       .catch(console.error);
   }, []);
 
-  if(!attractionData || !coreContent || !covidData) return null
+  if(!siteOptions || !updates) return null // Removed !attractionData
 
   return (
     <>
@@ -57,7 +64,7 @@ export default function Home() {
                   Welcome
               </span>
               <h1 className="font-extrabold text-5xl sm:text-6xl md:text-7xl text-white mt-1">
-                {coreContent.mainCoverText}
+                {siteOptions.mainCoverText}
               </h1>
               <Link to={"/directory"}><button className="text-db_blue-dark text-lg bg-white hover:opacity-80 font-semibold px-4 py-3 mt-6 rounded-xl">Visit Directory</button></Link>
           </div>
@@ -67,18 +74,19 @@ export default function Home() {
       </div>
     </div>
   </div>
-  <div className="w-full container mx-auto px-3 md:px-1 py-6 flex flex-col lg:flex-row items-center">
+  {/* Left out to save time for launch */}
+  {/* <div className="w-full container mx-auto px-3 md:px-1 py-6 flex flex-col lg:flex-row items-center">
     <div className="mx-10 mt-5 mb-6 text-db_green-dark text-4xl font-semibold text-center">Something for everyone</div>
     <TickerSection items={attractionData}/>
-  </div>
+  </div> */}
     <div className="bg-db_green w-full py-3 shadow-lg">
       <div className="container buffer-1 md:buffer-2 mx-auto mb-8">
-        <h2 className="my-20 text-4xl text-white font-bold text-center">{covidData.covidSectionHeader}</h2>
+        <h2 className="my-20 text-4xl text-white font-bold text-center">Updates</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {covidData.updates && (covidData.updates.length > 0 ? covidData.updates.map(update => <UpdateCard data={update} key={update.key} />) : <div className="w-full col-span-full my-5 text-center text-white">No Updates</div>)}
+          {updates && (updates.length > 0 ? updates.map(update => <UpdateCard data={update} key={update._id} />) : <div className="w-full col-span-full my-5 text-center text-white">No Updates {console.log(updates)}</div>)}
         </div>
         <div className="w-full text-white text-sm text-center mt-32">
-          {coreContent.footerText}
+          {siteOptions.footerText}
         </div>
       </div>
     </div>
