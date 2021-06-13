@@ -38,7 +38,7 @@ export default function Home() {
     const today = `${ye}-${mo}-${da}`;
 
     sanityClient
-      .fetch(`*[_type == 'update' && onHomepage && expiry > '${today}'] | order(date desc) {
+      .fetch(`*[_type == 'update' && onHomepage && (!defined(expiry) || expiry > '${today}')] | order(date desc) {
         _id,
         headline,
         text,
