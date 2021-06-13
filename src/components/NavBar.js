@@ -6,7 +6,7 @@ export default function NavBar({ opaque }) {
     const opacityClasses = opaque ? "w-full bg-white rounded-xl shadow-lg" : "w-full bg-white opacity-90 rounded-xl shadow-lg";
     const [hamburgerOpen, setHamburgerOpen] = useState(false);
     const hamClasses = `${hamburgerOpen ? 'tham-active' : ''} tham tham-e-squeeze tham-w-6`;
-    const drawerClasses = `${hamburgerOpen ? 'h-36' : 'h-0'} bg-white rounded-lg text-db_blue transition-height duration-500 ease-in-out`;
+    const drawerClasses = `${hamburgerOpen ? 'h-42' : 'h-0'} bg-white rounded-lg text-db_blue transition-height duration-500 ease-in-out`;
     const drawerInsideClasses = `${hamburgerOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} flex flex-col items-left p-2 pl-6 text-db_blue transition-opacity duration-500 delay-300 ease-in-out`;
     const handleToggleHam = () => setHamburgerOpen(!hamburgerOpen);
     
@@ -36,7 +36,10 @@ export default function NavBar({ opaque }) {
                                 Home
                             </NavLink>
                             <NavLink to="/directory" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
-                                Directory
+                                Businesses & Services
+                            </NavLink>
+                            <NavLink to="/attractions" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
+                                Attractions
                             </NavLink>
                             <NavLink to="/bbia" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
                                 BBIA
@@ -52,7 +55,10 @@ export default function NavBar({ opaque }) {
                         Home
                     </NavLink>
                     <NavLink to="/directory" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
-                        Directory
+                        Businesses & Services
+                    </NavLink>
+                    <NavLink to="/attractions" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
+                        Attractions
                     </NavLink>
                     <NavLink to="/bbia" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
                         BBIA
