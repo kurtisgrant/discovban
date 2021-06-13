@@ -10,10 +10,10 @@ export default function Bbia() {
 
   useEffect(() => {
     sanityClient
-      .fetch(`*[_id == 'coreContent']{
-        aboutBBIA
+      .fetch(`*[_type == 'contentPiece' && title == 'About the BBIA']{
+        content
       }`)
-      .then((data) => setBbiaData(data[0].aboutBBIA))
+      .then((data) => setBbiaData(data[0]))
       .catch(console.error);
   }, []);
 
@@ -24,9 +24,8 @@ export default function Bbia() {
       <div className="absolute top-0 bg-db_green-dark w-full">
         <NavBar />
         <div className="container buffer md:buffer-1 lg:buffer-2 mx-auto">
-          <div className="block-content bg-white my-36 py-3 shadow-lg rounded-2xl text-db_blue-dark">
-            <BlockContent projectId={auth.projectId} dataset={auth.dataset} blocks={bbiaData} className={styles.blockContent} style={styles}/>
-            {console.log(styles.blockContent)}
+          <div className="block-content bg-white my-36 px-5 py-3 shadow-lg rounded-2xl text-db_blue-dark">
+            <BlockContent projectId={auth.projectId} dataset={auth.dataset} blocks={bbiaData.content} className={styles.blockContent} style={styles}/>
           </div>
         </div>
       </div>

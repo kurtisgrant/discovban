@@ -4,6 +4,9 @@ import EaglesNestFall from '../../images/EaglesNestFall.jpg'
 // import TickerSection from '../TickerSection'
 import NavBar from '../NavBar'
 import UpdateCard from '../UpdateCard'
+import BlockContent from '@sanity/block-content-to-react'
+import auth from '../../sanityAuth'
+import styles from '../../styles/article.module.css'
 import { Link } from 'react-router-dom'
 
     // Attraction tags section temporarily left out********
@@ -25,6 +28,7 @@ export default function Home() {
     sanityClient
       .fetch(`*[_type == 'siteOptions']{
         mainCoverText,
+        homepageBody->{content},
         footerText
       }`)
       .then((data) => setSiteOptions(data[0]))
@@ -49,7 +53,10 @@ export default function Home() {
       .catch(console.error);
   }, []);
 
+  
   if(!siteOptions || !updates) return null // Removed !attractionData
+
+  const bodyClasses = updates.length > 0 ? 'col-span-1 md:col-span-2 text-white order-last md:order-first md:mr-4' : 'col-span-1 md:col-span-3 px-20 mx-auto text-white'
 
   return (
     <>
@@ -80,10 +87,18 @@ export default function Home() {
     <TickerSection items={attractionData}/>
   </div> */}
     <div className="bg-db_green w-full py-3 shadow-lg">
-      <div className="container buffer-1 md:buffer-2 mx-auto mb-8">
-        <h2 className="my-20 text-4xl text-white font-bold text-center">Updates</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {updates && (updates.length > 0 ? updates.map(update => <UpdateCard data={update} key={update._id} />) : <div className="w-full col-span-full my-5 text-center text-white">No Updates {console.log(updates)}</div>)}
+      <div className="container buffer-1 mx-auto mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {updates.length > 0 && (
+          <div>
+            <h2 className="my-8 text-3xl text-white font-bold text-center">Updates</h2>
+            <div className="grid grid-cols-1 gap-6">
+              {updates.length > 0 ? updates.map(update => <UpdateCard data={update} key={update._id} />) : <div className="w-full col-span-full my-5 text-center text-white">No Updates</div>}
+            </div>
+          </div>)}
+          <div className={bodyClasses}>
+            <BlockContent projectId={auth.projectId} dataset={auth.dataset} blocks={siteOptions.homepageBody.content} className={styles.blockContent} style={styles}/>
+          </div>
         </div>
         <div className="w-full text-white text-sm text-center mt-32">
           {siteOptions.footerText}
