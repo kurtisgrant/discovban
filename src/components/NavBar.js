@@ -38,9 +38,9 @@ export default function NavBar({ opaque }) {
                             <NavLink to="/directory" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
                                 Businesses & Services
                             </NavLink>
-                            <NavLink to="/attractions" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
+                            {/* <NavLink to="/attractions" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
                                 Attractions
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink to="/bbia" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
                                 BBIA
                             </NavLink>
@@ -57,9 +57,9 @@ export default function NavBar({ opaque }) {
                     <NavLink to="/directory" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
                         Businesses & Services
                     </NavLink>
-                    <NavLink to="/attractions" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
+                    {/* <NavLink to="/attractions" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
                         Attractions
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink to="/bbia" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
                         BBIA
                     </NavLink>

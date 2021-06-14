@@ -19,23 +19,27 @@ export default function Directory() {
 
   useEffect(() => {
     sanityClient
-      .fetch(`*[_type == 'business']{
+      .fetch(`*[_type == 'listing']{
+        _id,
+        memberStatus,
         name,
         slug,
-        description,
-        address,
-        memberStatus,
         mainImage{
           asset->{
             _id,
             url
           }
         },
+        description,
         categories[]->{_id, title},
+        "locale":locale->{_id, name},
+        address,
         details,
-        "locale":locale->name,
         phone,
-        email
+        email,
+        facebook,
+        instagram,
+        website
       } | order(name asc)`)
       .then((data) => setDirectoryData(data))
       .catch(console.error);
@@ -44,14 +48,15 @@ export default function Directory() {
   if (directoryData) {
 
     // Populate categories array & locales array from business data fetched
-    directoryData.forEach(business => {
-      business.categories.forEach(c => {
+    directoryData.forEach(listing => {
+      if(!listing.categories) return
+      listing.categories.forEach(c => {
         if (!categoriesArr.includes(c.title)) {
           categoriesArr.push(c.title);
         };
       });
-      if (business.locale && !localesArr.includes(business.locale)) {
-        localesArr.push(business.locale);
+      if (listing.locale && !localesArr.includes(listing.locale.name)) {
+        localesArr.push(listing.locale.name);
       };
     });
     
@@ -63,11 +68,17 @@ export default function Directory() {
     }
   }
 
+  // Filter directory data based on user settings
   useEffect(() => {
     if (!directoryData) return
-    setFilteredDirectoryData(directoryData.filter(business => {
-      if (!business.categories.some(({title}) => title === filterCategory) && filterCategory !== ALL_CATEGORIES_NAME) return false;
-      if (business.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
+    setFilteredDirectoryData(directoryData.filter(listing => {
+      if (listing.categories) {
+        if (!listing.categories.some(({title}) => title === filterCategory) && filterCategory !== ALL_CATEGORIES_NAME) return false;
+      }
+      if (!listing.locale && filterLocale !== ALL_LOCALES_NAME) return false;
+      if (listing.locale) {
+        if (listing.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
+      }
       return true;
     }))
   }, [directoryData, filterCategory, filterLocale])
@@ -93,15 +104,14 @@ export default function Directory() {
     <div className="container buffer md:buffer-1 lg:buffer-2 mt-36 mx-auto flex flex-auto flex-col xl:flex-row">
 
       {/* FILTER */}
-      <div className="rounded-2xl shadow-lg bg-white z-10 m-2 p-3 md:self-start">
+      <div className="rounded-2xl shadow-lg bg-white z-10 m-2 p-3 w-full md:w-4/5 lg:w-3/4 xl:w-64 md:self-start">
         <FilterForm categories={categoriesArr} locales={localesArr} filterCategory={filterCategory} filterLocale={filterLocale} handleCategoryChange={handleFilterCategoryChange} handleLocaleChange={handleFilterLocaleChange} handleClearFilters={handleClearFilters}/>
       </div>
 
       {/* LISTINGS */}
       <div className="rounded-2xl shadow-lg bg-white z-10 flex-grow m-2 p-3 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-
-          {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(biz => <BusinessCard data={biz} key={biz.name} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
+          {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(listing => <BusinessCard data={listing} key={listing._id} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
         </div>
       </div>
 
