@@ -1,6 +1,6 @@
 .blockContent p {
-  margin: 0.3rem 1.8rem 0.3rem;
-  color: black;
+  margin: 0.5rem 0 1.2rem;
+  color: inherit;
 }
 
 .blockContent h1,
@@ -11,7 +11,7 @@
 .blockContent h6,
 .blockContent ul,
 .blockContent blockquote {
-  margin: 1.2rem 1.8rem 0.3rem;
+  margin: 1.2rem 0 0.6rem;
 }
 
 .blockContent li {
@@ -29,6 +29,7 @@
 .blockContent h2,
 .blockContent h3 {
   margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .blockContent h1 {

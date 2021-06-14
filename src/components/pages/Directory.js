@@ -5,37 +5,41 @@ import BusinessCard from '../BusinessCard'
 import sanityClient from '../../client'
 
 const ALL_CATEGORIES_NAME = 'All Categories';
-const ALL_LOCALES_NAME = 'Bancroft Area (All)';
-const DEFAULT_LOCALE = 'Downtown Bancroft';
+// const ALL_LOCALES_NAME = 'Bancroft Area (All)';
+// const DEFAULT_LOCALE = 'Town of Bancroft';
 
 export default function Directory() {
   const categoriesArr = [ALL_CATEGORIES_NAME];
-  const localesArr = [ALL_LOCALES_NAME];
+  // const localesArr = [ALL_LOCALES_NAME];
   const [directoryData, setDirectoryData] = useState(null);
   const [filteredDirectoryData, setFilteredDirectoryData] = useState(null);
 
   const [filterCategory, setFilterCategory] = useState(null);
-  const [filterLocale, setFilterLocale] = useState(null);
+  // const [filterLocale, setFilterLocale] = useState(null);
 
   useEffect(() => {
     sanityClient
-      .fetch(`*[_type == 'business']{
+      .fetch(`*[_type == 'listing']{
+        _id,
+        memberStatus,
         name,
         slug,
-        description,
-        address,
-        memberStatus,
         mainImage{
           asset->{
             _id,
             url
           }
         },
+        description,
         categories[]->{_id, title},
+        "locale":locale->{_id, name},
+        address,
         details,
-        "locale":locale->name,
         phone,
-        email
+        email,
+        facebook,
+        instagram,
+        website
       } | order(name asc)`)
       .then((data) => setDirectoryData(data))
       .catch(console.error);
@@ -44,33 +48,40 @@ export default function Directory() {
   if (directoryData) {
 
     // Populate categories array & locales array from business data fetched
-    directoryData.forEach(business => {
-      business.categories.forEach(c => {
+    directoryData.forEach(listing => {
+      if(!listing.categories) return
+      listing.categories.forEach(c => {
         if (!categoriesArr.includes(c.title)) {
           categoriesArr.push(c.title);
         };
       });
-      if (business.locale && !localesArr.includes(business.locale)) {
-        localesArr.push(business.locale);
-      };
+      // if (listing.locale && !localesArr.includes(listing.locale.name)) {
+      //   localesArr.push(listing.locale.name);
+      // };
     });
     
     if (filterCategory == null) {
       setFilterCategory(ALL_CATEGORIES_NAME);
     }
-    if (filterLocale == null) {
-      setFilterLocale(localesArr.includes(DEFAULT_LOCALE) ? DEFAULT_LOCALE : ALL_LOCALES_NAME);
-    }
+    // if (filterLocale == null) {
+    //   setFilterLocale(localesArr.includes(DEFAULT_LOCALE) ? DEFAULT_LOCALE : ALL_LOCALES_NAME);
+    // }
   }
 
+  // Filter directory data based on user settings
   useEffect(() => {
     if (!directoryData) return
-    setFilteredDirectoryData(directoryData.filter(business => {
-      if (!business.categories.some(({title}) => title === filterCategory) && filterCategory !== ALL_CATEGORIES_NAME) return false;
-      if (business.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
+    setFilteredDirectoryData(directoryData.filter(listing => {
+      if (listing.categories) {
+        if (!listing.categories.some(({title}) => title === filterCategory) && filterCategory !== ALL_CATEGORIES_NAME) return false;
+      }
+      // if (!listing.locale && filterLocale !== ALL_LOCALES_NAME) return false;
+      // if (listing.locale) {
+      //   if (listing.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
+      // }
       return true;
     }))
-  }, [directoryData, filterCategory, filterLocale])
+  }, [directoryData, filterCategory]) // Removed filterLocale
 
   if (!directoryData) return null;
 
@@ -78,14 +89,14 @@ export default function Directory() {
   const handleFilterCategoryChange = (e) => {
     setFilterCategory(e.target.value);
   }
-  const handleFilterLocaleChange = (e) => {
-    setFilterLocale(e.target.value);
-  }
-  const handleClearFilters = (e) => {
-    setFilterCategory(categoriesArr[0]);
-    setFilterLocale(localesArr[0]);
-  }
-
+  // const handleFilterLocaleChange = (e) => {
+  //   setFilterLocale(e.target.value);
+  // }
+  // const handleClearFilters = (e) => {
+  //   setFilterCategory(categoriesArr[0]);
+  //   setFilterLocale(localesArr[0]);
+  // }
+// 
   return (
     <>
     <NavBar />
@@ -93,15 +104,22 @@ export default function Directory() {
     <div className="container buffer md:buffer-1 lg:buffer-2 mt-36 mx-auto flex flex-auto flex-col xl:flex-row">
 
       {/* FILTER */}
-      <div className="rounded-2xl shadow-lg bg-white z-10 m-2 p-3 md:self-start">
-        <FilterForm categories={categoriesArr} locales={localesArr} filterCategory={filterCategory} filterLocale={filterLocale} handleCategoryChange={handleFilterCategoryChange} handleLocaleChange={handleFilterLocaleChange} handleClearFilters={handleClearFilters}/>
+      <div className="rounded-2xl shadow-lg bg-white z-10 m-2 p-3 w-full md:w-4/5 lg:w-3/4 xl:w-64 md:self-start">
+        <FilterForm 
+        categories={categoriesArr} 
+        // locales={localesArr} 
+        filterCategory={filterCategory} 
+        // filterLocale={filterLocale} 
+        handleCategoryChange={handleFilterCategoryChange} 
+        // handleLocaleChange={handleFilterLocaleChange} 
+        // handleClearFilters={handleClearFilters}
+        />
       </div>
 
       {/* LISTINGS */}
       <div className="rounded-2xl shadow-lg bg-white z-10 flex-grow m-2 p-3 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-
-          {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(biz => <BusinessCard data={biz} key={biz.name} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
+          {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(listing => <BusinessCard data={listing} key={listing._id} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
         </div>
       </div>
 
