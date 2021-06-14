@@ -5,17 +5,17 @@ import BusinessCard from '../BusinessCard'
 import sanityClient from '../../client'
 
 const ALL_CATEGORIES_NAME = 'All Categories';
-const ALL_LOCALES_NAME = 'Bancroft Area (All)';
-const DEFAULT_LOCALE = 'Downtown Bancroft';
+// const ALL_LOCALES_NAME = 'Bancroft Area (All)';
+// const DEFAULT_LOCALE = 'Town of Bancroft';
 
 export default function Directory() {
   const categoriesArr = [ALL_CATEGORIES_NAME];
-  const localesArr = [ALL_LOCALES_NAME];
+  // const localesArr = [ALL_LOCALES_NAME];
   const [directoryData, setDirectoryData] = useState(null);
   const [filteredDirectoryData, setFilteredDirectoryData] = useState(null);
 
   const [filterCategory, setFilterCategory] = useState(null);
-  const [filterLocale, setFilterLocale] = useState(null);
+  // const [filterLocale, setFilterLocale] = useState(null);
 
   useEffect(() => {
     sanityClient
@@ -55,17 +55,17 @@ export default function Directory() {
           categoriesArr.push(c.title);
         };
       });
-      if (listing.locale && !localesArr.includes(listing.locale.name)) {
-        localesArr.push(listing.locale.name);
-      };
+      // if (listing.locale && !localesArr.includes(listing.locale.name)) {
+      //   localesArr.push(listing.locale.name);
+      // };
     });
     
     if (filterCategory == null) {
       setFilterCategory(ALL_CATEGORIES_NAME);
     }
-    if (filterLocale == null) {
-      setFilterLocale(localesArr.includes(DEFAULT_LOCALE) ? DEFAULT_LOCALE : ALL_LOCALES_NAME);
-    }
+    // if (filterLocale == null) {
+    //   setFilterLocale(localesArr.includes(DEFAULT_LOCALE) ? DEFAULT_LOCALE : ALL_LOCALES_NAME);
+    // }
   }
 
   // Filter directory data based on user settings
@@ -75,13 +75,13 @@ export default function Directory() {
       if (listing.categories) {
         if (!listing.categories.some(({title}) => title === filterCategory) && filterCategory !== ALL_CATEGORIES_NAME) return false;
       }
-      if (!listing.locale && filterLocale !== ALL_LOCALES_NAME) return false;
-      if (listing.locale) {
-        if (listing.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
-      }
+      // if (!listing.locale && filterLocale !== ALL_LOCALES_NAME) return false;
+      // if (listing.locale) {
+      //   if (listing.locale !== filterLocale && filterLocale !== ALL_LOCALES_NAME) return false;
+      // }
       return true;
     }))
-  }, [directoryData, filterCategory, filterLocale])
+  }, [directoryData, filterCategory]) // Removed filterLocale
 
   if (!directoryData) return null;
 
@@ -89,14 +89,14 @@ export default function Directory() {
   const handleFilterCategoryChange = (e) => {
     setFilterCategory(e.target.value);
   }
-  const handleFilterLocaleChange = (e) => {
-    setFilterLocale(e.target.value);
-  }
-  const handleClearFilters = (e) => {
-    setFilterCategory(categoriesArr[0]);
-    setFilterLocale(localesArr[0]);
-  }
-
+  // const handleFilterLocaleChange = (e) => {
+  //   setFilterLocale(e.target.value);
+  // }
+  // const handleClearFilters = (e) => {
+  //   setFilterCategory(categoriesArr[0]);
+  //   setFilterLocale(localesArr[0]);
+  // }
+// 
   return (
     <>
     <NavBar />
@@ -105,7 +105,15 @@ export default function Directory() {
 
       {/* FILTER */}
       <div className="rounded-2xl shadow-lg bg-white z-10 m-2 p-3 w-full md:w-4/5 lg:w-3/4 xl:w-64 md:self-start">
-        <FilterForm categories={categoriesArr} locales={localesArr} filterCategory={filterCategory} filterLocale={filterLocale} handleCategoryChange={handleFilterCategoryChange} handleLocaleChange={handleFilterLocaleChange} handleClearFilters={handleClearFilters}/>
+        <FilterForm 
+        categories={categoriesArr} 
+        // locales={localesArr} 
+        filterCategory={filterCategory} 
+        // filterLocale={filterLocale} 
+        handleCategoryChange={handleFilterCategoryChange} 
+        // handleLocaleChange={handleFilterLocaleChange} 
+        // handleClearFilters={handleClearFilters}
+        />
       </div>
 
       {/* LISTINGS */}
