@@ -100,7 +100,7 @@ export default function Directory() {
   // }
 // 
   return (
-    <div className="bg-db_blue-dark2 text-db_blue-dark2 min-h-screen pb-32">
+    <div className="bg-db_blue-dark2 text-db_blue-dark2 min-h-screen pb-32 overflow-hidden">
     <NavBar />
     <ScrollingTextHero text="Directory" bgColor="db_blue" />
     <div className="container buffer md:buffer-1 mx-auto flex flex-col xl:flex-row">
