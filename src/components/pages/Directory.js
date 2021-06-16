@@ -100,7 +100,7 @@ export default function Directory() {
   // }
 // 
   return (
-    <div className="bg-db_blue-dark2 text-db_blue-dark2 min-h-screen">
+    <div className="bg-db_blue-dark2 text-db_blue-dark2 min-h-screen pb-32">
     <NavBar />
     <ScrollingTextHero text="Directory" bgColor="db_blue" />
     <div className="container buffer md:buffer-1 mx-auto flex flex-col xl:flex-row">
@@ -123,7 +123,7 @@ export default function Directory() {
       </div>
 
       {/* LISTINGS */}
-      <div className="flex-grow pb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 p-3">
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 p-3">
         {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(listing => <BusinessCard data={listing} key={listing._id} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
       </div>
 

@@ -13,8 +13,8 @@ export default function ScrollingTextHero({ text, bgColor }) {
   } else {
     animateTime = 50 // 5 & under
   }
-  const lvl1Classes = `h-56 md:h-80 w-full bg-${bgColor} fixed top-0 z-0 shadow-lg overflow-hidden`
-  const lvl2Classes = `whitespace-nowrap overflow-hidden absolute w-auto top-3 md:top-10 text-12xl md:text-13xl text-white opacity-5 uppercase tracking-normal font-bold animate-header-scroll-${animateTime}`
+  const lvl1Classes = `h-56 md:h-64 lg:h-80 w-full bg-${bgColor} fixed top-0 z-0 shadow-lg overflow-hidden`
+  const lvl2Classes = `whitespace-nowrap overflow-hidden absolute w-auto top-3 md:top-8 lg:top-10 text-12xl lg:text-13xl text-white opacity-5 uppercase tracking-normal font-bold animate-header-scroll-${animateTime}`
 
   const str = `${text}  ${text}  ${text}  ${text}  ${text}  `
 
@@ -25,7 +25,7 @@ export default function ScrollingTextHero({ text, bgColor }) {
           <span className="whitespace-pre select-none">{str}</span>
         </div>
       </div>
-      <div className="h-48 md:h-64" />
+      <div className="h-48 md:h-56 lg:h-64" />
     </>
   )
 }
