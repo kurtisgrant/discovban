@@ -21,7 +21,7 @@ export default function Bbia() {
 
   return (
     <>
-      <div className="absolute top-0 bg-db_green-dark w-full">
+      <div className="absolute top-0 bg-db_green-dark3 w-full">
         <NavBar />
         <div className="container buffer md:buffer-1 lg:buffer-2 mx-auto">
           <div className="block-content bg-white my-36 px-5 py-3 shadow-lg rounded-2xl text-db_blue-dark">

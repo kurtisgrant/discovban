@@ -86,7 +86,7 @@ export default function Home() {
     <div className="mx-10 mt-5 mb-6 text-db_green-dark text-4xl font-semibold text-center">Something for everyone</div>
     <TickerSection items={attractionData}/>
   </div> */}
-    <div className="bg-db_green w-full py-3 shadow-lg">
+    <div className="bg-db_green-dark w-full py-3 shadow-lg">
       <div className="container buffer-1 mx-auto mb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {updates.length > 0 && (

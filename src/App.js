@@ -1,13 +1,13 @@
 import './styles/tailwind.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from "./components/pages/Home";
-import About from "./components/pages/About";
 import Bbia from "./components/pages/Bbia"
-import Post from "./components/pages/Post";
-import SinglePost from "./components/pages/SinglePost";
 import Directory from "./components/pages/Directory";
 import Listing from "./components/pages/Listing";
-import Attraction from "./components/pages/Attraction"
+import Blog from "./components/pages/Blog";
+import Post from "./components/pages/Post";
+import Attractions from "./components/pages/Attractions";
+import Attraction from "./components/pages/Attraction";
 
 function App() {
 
@@ -16,13 +16,14 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route component={Home} path='/' exact />
-        <Route component={About} path='/about' />
-        <Route component={Bbia} path='/bbia' />
-        <Route component={SinglePost} path='/post/:slug' />
-        <Route component={Post} path='/post' />
-        <Route component={Attraction} path='/attraction/:slug' />
-        <Route component={Listing} path='directory/:slug' />
         <Route component={Directory} path='/directory' />
+        <Route component={Bbia} path='/bbia' />
+        <Route component={Attractions} path='/attractions' />
+
+        <Route component={Listing} path='directory/:slug' />
+        <Route component={Attraction} path='/attractions/:slug' />
+        <Route component={Blog} path='/blog' />
+        <Route component={Post} path='/blog/:slug' />
       </Switch>
     </BrowserRouter>
   );
