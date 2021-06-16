@@ -21,7 +21,7 @@ export default function Attraction({ data }) {
         style={divStyle}
         ></div>}
 
-        <p className="mt-3">
+        <p className="mt-3 break-words">
           <BlockContent projectId={auth.projectId} dataset={auth.dataset} blocks={data.details} className={styles.blockContent} style={styles} />
         </p>
 
