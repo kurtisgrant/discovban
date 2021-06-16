@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import NavBar from '../NavBar'
+import ScrollingTextHero from '../ScrollingTextHero'
 import FilterForm from '../FilterForm'
 import BusinessCard from '../BusinessCard'
 import sanityClient from '../../client'
@@ -23,7 +24,7 @@ export default function Directory() {
         _id,
         memberStatus,
         name,
-        slug,
+        "slug": slug.current,
         mainImage{
           asset->{
             _id,
@@ -87,6 +88,7 @@ export default function Directory() {
 
 
   const handleFilterCategoryChange = (e) => {
+    window.scrollTo(0,0);
     setFilterCategory(e.target.value);
   }
   // const handleFilterLocaleChange = (e) => {
@@ -98,32 +100,34 @@ export default function Directory() {
   // }
 // 
   return (
-    <>
+    <div className="bg-db_blue-dark2 text-db_blue-dark2 min-h-screen">
     <NavBar />
-    <div className="h-80 w-full bg-db_green-dark absolute top-0 z-0 shadow-lg"></div>
-    <div className="container buffer md:buffer-1 lg:buffer-2 mt-36 mx-auto flex flex-auto flex-col xl:flex-row">
+    <ScrollingTextHero text="Directory" bgColor="db_blue" />
+    <div className="container buffer md:buffer-1 mx-auto flex flex-col xl:flex-row">
 
       {/* FILTER */}
-      <div className="rounded-2xl shadow-lg bg-white z-10 m-2 p-3 w-full md:w-4/5 lg:w-3/4 xl:w-64 md:self-start">
-        <FilterForm 
-        categories={categoriesArr} 
-        // locales={localesArr} 
-        filterCategory={filterCategory} 
-        // filterLocale={filterLocale} 
-        handleCategoryChange={handleFilterCategoryChange} 
-        // handleLocaleChange={handleFilterLocaleChange} 
-        // handleClearFilters={handleClearFilters}
-        />
-      </div>
-
-      {/* LISTINGS */}
-      <div className="rounded-2xl shadow-lg bg-white z-10 flex-grow m-2 p-3 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(listing => <BusinessCard data={listing} key={listing._id} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
+      <div className="flex-grow-0 flex-shrink-0 z-10 p-3 w-full md:w-4/5 lg:w-3/4 xl:w-80 md:self-start">
+        <div className="xl:fixed xl:w-80 xl:pr-4">
+        <div className="p-3 rounded-2xl shadow-lg bg-white">
+          <FilterForm 
+          categories={categoriesArr} 
+          // locales={localesArr} 
+          filterCategory={filterCategory} 
+          // filterLocale={filterLocale} 
+          handleCategoryChange={handleFilterCategoryChange} 
+          // handleLocaleChange={handleFilterLocaleChange} 
+          // handleClearFilters={handleClearFilters}
+          />
+        </div>
         </div>
       </div>
 
+      {/* LISTINGS */}
+      <div className="flex-grow pb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 p-3">
+        {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(listing => <BusinessCard data={listing} key={listing._id} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
+      </div>
+
     </div>
-    </>
+    </div>
   )
 }

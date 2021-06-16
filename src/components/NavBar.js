@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import logo from '../images/Logo.png'
 import { NavLink } from 'react-router-dom'
 
-export default function NavBar({ opaque }) {
-    const opacityClasses = opaque ? "w-full bg-white rounded-xl shadow-lg" : "w-full bg-white opacity-90 rounded-xl shadow-lg";
+export default function NavBar({ transparent }) {
+    const opacityClasses = !transparent ? "w-full bg-white rounded-xl shadow-xl" : "w-full bg-white opacity-80 rounded-xl shadow-xl";
     const [hamburgerOpen, setHamburgerOpen] = useState(false);
     const hamClasses = `${hamburgerOpen ? 'tham-active' : ''} tham tham-e-squeeze tham-w-6`;
     const drawerClasses = `${hamburgerOpen ? 'h-42' : 'h-0'} bg-white rounded-lg text-db_blue transition-height duration-500 ease-in-out`;
@@ -38,31 +38,33 @@ export default function NavBar({ opaque }) {
                             <NavLink to="/directory" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
                                 Businesses & Services
                             </NavLink>
-                            {/* <NavLink to="/attractions" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
+                            <NavLink to="/attractions" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
                                 Attractions
-                            </NavLink> */}
+                            </NavLink>
                             <NavLink to="/bbia" activeClassName='font-extrabold' className="text-lg font-semibold cursor-pointer whitespace-nowrap my-2">
                                 BBIA
                             </NavLink>
                         </div>
                     </div>
                 </div>
-                <div className="hidden md:flex items-center container mx-auto text-db_blue-dark">
-                    <NavLink exact to="/" className="m-1 mx-20 p-1">
-                        <img className="h-16" src={logo} alt=""/>
+                <div className="hidden md:flex justify-evenly container mx-auto text-db_blue-dark">
+                    <NavLink exact to="/" className="m-1 p-1">
+                        <img className="h-16 hover:opacity-70" src={logo} alt=""/>
                     </NavLink>
-                    <NavLink exact to="/" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
-                        Home
-                    </NavLink>
-                    <NavLink to="/directory" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
-                        Businesses & Services
-                    </NavLink>
-                    {/* <NavLink to="/attractions" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
-                        Attractions
-                    </NavLink> */}
-                    <NavLink to="/bbia" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-4 hover:opacity-70">
-                        BBIA
-                    </NavLink>
+                    <div className="flex justify-between align-center align-center items-center">
+                        <NavLink exact to="/" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
+                            Home
+                        </NavLink>
+                        <NavLink to="/directory" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
+                            Businesses & Services
+                        </NavLink>
+                        <NavLink to="/attractions" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
+                            Attractions
+                        </NavLink>
+                        <NavLink to="/bbia" activeClassName='font-semibold' className="text-lg cursor-pointer whitespace-nowrap mx-3 hover:opacity-70">
+                            BBIA
+                        </NavLink>
+                    </div>
                 </div>
             </nav>
         </div>
