@@ -26,7 +26,7 @@ export default function Attractions() {
   if (!attractions) return null;
 
   return (
-    <div className="bg-db_green-dark4 text-db_green-dark4 pb-32">
+    <div className="bg-db_green-dark4 text-db_green-dark4 pb-32 overflow-hidden">
       <Navbar />
       <ScrollingTextHero text="Attractions" bgColor="db_green-dark" />
       <div className="container buffer md:buffer-1 lg:buffer-2 mx-auto flex flex-auto flex-col xl:flex-row">
