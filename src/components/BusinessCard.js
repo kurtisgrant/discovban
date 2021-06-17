@@ -25,7 +25,7 @@ export default function BusinessCard({ data }) {
     <Link 
     className="group z-10"
     to={"/directory/" + data.slug}>
-      <div className="relative h-full bg-white rounded-xl p-5 flex flex-col justify-between shadow-lg break-words transform group-hover:scale-95 group-hover:">
+      <div className="relative h-full bg-white rounded-xl p-5 flex flex-col justify-between shadow-lg break-words transform lg:group-hover:scale-95">
         <div className="">
           {/* Name and description */}
           <div className={(data.description || data.address || data.phone || data.email) ? "mb-4" : ""}>
