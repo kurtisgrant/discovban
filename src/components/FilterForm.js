@@ -3,8 +3,8 @@ import React from 'react'
 export default function FilterForm(props) {
   return (
     <div className="flex flex-col">
-      <label className="font-bold my-2 text-lg md:text-2xl" for="Category">Categories</label>
-      <select className="rounded-lg w-full text-lg md:text-lg" name="Category" id="Category" value={props.filterCategory} onChange={props.handleCategoryChange}>
+      <label className="font-bold my-2 text-2xl" for="Category">Categories</label>
+      <select className="rounded-lg w-full text-lg cursor-pointer" name="Category" id="Category" value={props.filterCategory} onChange={props.handleCategoryChange}>
         {props.categories.map(category => (
         <option key={category} value={category} id={category}>{category}</option>
         ))}

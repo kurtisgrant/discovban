@@ -16,14 +16,17 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route component={Home} path='/' exact />
+
+        <Route component={Listing} path='/directory/:slug' />
         <Route component={Directory} path='/directory' />
-        <Route component={Bbia} path='/bbia' />
+
+        <Route component={Attraction} path='/attractions/:slug' />
         <Route component={Attractions} path='/attractions' />
 
-        <Route component={Listing} path='directory/:slug' />
-        <Route component={Attraction} path='/attractions/:slug' />
-        <Route component={Blog} path='/blog' />
         <Route component={Post} path='/blog/:slug' />
+        <Route component={Blog} path='/blog' />
+        
+        <Route component={Bbia} path='/bbia' />
       </Switch>
     </BrowserRouter>
   );
