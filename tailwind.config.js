@@ -45,6 +45,11 @@ module.exports = {
       }
     }
   },
+  variants: {
+    extend: {
+      scale: ['group-hover']
+    }
+  },
   plugins: [
     require('@tailwindcss/forms'),
     require('tailwind-hamburgers')

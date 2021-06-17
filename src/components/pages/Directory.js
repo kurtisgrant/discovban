@@ -4,6 +4,7 @@ import ScrollingTextHero from '../ScrollingTextHero'
 import FilterForm from '../FilterForm'
 import BusinessCard from '../BusinessCard'
 import sanityClient from '../../client'
+import Loading from '../Loading'
 
 const ALL_CATEGORIES_NAME = 'All Categories';
 // const ALL_LOCALES_NAME = 'Bancroft Area (All)';
@@ -14,6 +15,7 @@ export default function Directory() {
   // const localesArr = [ALL_LOCALES_NAME];
   const [directoryData, setDirectoryData] = useState(null);
   const [filteredDirectoryData, setFilteredDirectoryData] = useState(null);
+  const [falseLoading, setFalseLoading] = useState(false);
 
   const [filterCategory, setFilterCategory] = useState(null);
   // const [filterLocale, setFilterLocale] = useState(null);
@@ -25,17 +27,14 @@ export default function Directory() {
         memberStatus,
         name,
         "slug": slug.current,
-        mainImage{
-          asset->{
-            _id,
-            url
-          }
+        "image": mainImage{
+          "url": image.asset->url,
+          alt
         },
         description,
         categories[]->{_id, title},
         "locale":locale->{_id, name},
         address,
-        details,
         phone,
         email,
         facebook,
@@ -84,12 +83,12 @@ export default function Directory() {
     }))
   }, [directoryData, filterCategory]) // Removed filterLocale
 
-  if (!directoryData) return null;
-
 
   const handleFilterCategoryChange = (e) => {
+    setFalseLoading(true)
     window.scrollTo(0,0);
     setFilterCategory(e.target.value);
+    setTimeout(() => setFalseLoading(false), 600)
   }
   // const handleFilterLocaleChange = (e) => {
   //   setFilterLocale(e.target.value);
@@ -104,6 +103,7 @@ export default function Directory() {
     <NavBar />
     <ScrollingTextHero text="Directory" bgColor="db_blue" />
     <div className="container buffer md:buffer-1 mx-auto flex flex-col xl:flex-row">
+      {!directoryData ? <Loading text="white" /> : (<>
 
       {/* FILTER */}
       <div className="flex-grow-0 flex-shrink-0 z-10 p-3 w-full md:w-4/5 lg:w-3/4 xl:w-80 md:self-start">
@@ -123,9 +123,11 @@ export default function Directory() {
       </div>
 
       {/* LISTINGS */}
+      {falseLoading ? <Loading text="white" /> : (
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 p-3">
         {filteredDirectoryData && (filteredDirectoryData.length > 0 ? filteredDirectoryData.map(listing => <BusinessCard data={listing} key={listing._id} />) : <div className="w-full col-span-full my-5 text-center">No Results</div>)}
-      </div>
+      </div>)}
+      </>)}
 
     </div>
     </div>
