@@ -22,11 +22,11 @@ export default function BusinessCard({ data }) {
   }
 
   return (
-    <Link 
-    className="group z-10"
-    to={"/directory/" + data.slug}>
-      <div className="relative h-full bg-white rounded-xl p-5 flex flex-col justify-between shadow-lg break-words transform lg:group-hover:scale-95">
-        <div className="">
+    <div className="group z-10">
+      <div className="relative h-full bg-white rounded-xl flex flex-col justify-between shadow-lg break-words transform lg:group-hover:scale-95">
+        <Link 
+        className="p-5"
+        to={"/directory/" + data.slug}>
           {/* Name and description */}
           <div className={(data.description || data.address || data.phone || data.email) ? "mb-4" : ""}>
             {/* {data.locale && <div className="font-semibold inline-block float-right bg-white text-db_blue text-xs rounded-full px-2 mx-1 whitespace-nowrap">{data.locale.name}</div>} */}
@@ -44,14 +44,14 @@ export default function BusinessCard({ data }) {
             {data.phone && <div className="text-gray-400 float-left clear-left">{data.phone}</div>}
             {data.email && <div className="text-gray-400 float-left clear-left">{data.email}</div>}
           </div>
-        </div>
+        </Link>
         {/* Links */}
-        <div className="-mb-2 px-1 gap-2 justify-end flex content-center text-3xl">
+        <div className="-mb-2 p-5 pt-0 -mt-4 gap-2 justify-end flex content-center text-3xl">
           {data.website && <a href={data.website} className="hover:opacity-80"><i className="fas fa-external-link-alt"></i></a>}
           {data.facebook && <a href={data.facebook} className="hover:opacity-80"><i className="fab fa-facebook-square"></i></a>}
           {data.instagram && <a href={data.instagram} className="hover:opacity-80"><i className="fab fa-instagram"></i></a>}
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
