@@ -15,7 +15,7 @@
 
 ---
 
-[DiscoverBancroft.ca](https://www.discoverbancroft.ca/) is a simple directory website for the town of Bancroft, Ontario. 
+[www.DiscoverBancroft.ca](https://www.discoverbancroft.ca/) is a simple directory website for the town of Bancroft, Ontario. 
 
 The frontend is built with **React** and **Tailwind CSS** and is deployed using **Netlify**. 
 
@@ -24,7 +24,9 @@ The backend is a headless CMS setup with **Sanity.io**, allowing the client to e
 ## Demo
 
 ### Live website
-![](./docs/discovban-client.gif)
+| | |
+| --- | --- |
+| ![](./docs/discovban-client.gif) | ![](./docs/discovban-responsive.gif) |
 
 ### Sanity.io Headless CMS (backend)
 Where the client is able to sign in and create, read, update and delete listings and other website content.
