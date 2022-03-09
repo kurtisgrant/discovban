@@ -2,7 +2,7 @@
   "name": "discovban",
   "private": true,
   "version": "1.0.0",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)",
+  "description": "A simple directory website for the town of Bancroft, Ontario",
   "main": "package.json",
   "author": "Kurtis Grant <kurtis.b.grant@gmail.com>",
   "license": "UNLICENSED",
